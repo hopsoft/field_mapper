@@ -41,7 +41,7 @@ The supported datatypes are:
 - Plat
 - List (of any listed type)
 
-*__Note:__ The examples below highlight most of the features; though, they are painfully contrived."
+*__Note:__ The examples below highlight most of the features; though, they are painfully contrived.*
 
 ## Quick Start
 
