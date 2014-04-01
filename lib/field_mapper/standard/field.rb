@@ -114,7 +114,7 @@ module FieldMapper
         when "Time"                         then return Time.parse(value.to_s) rescue nil # TODO: log error?
         when "Integer"                      then return value.to_i
         when "Float"                        then return value.to_f
-        when "Money"                        then return Money.parse(value) rescue nil # TODO: log error?
+        when "Money"                        then return Monetize.parse(value) rescue nil # TODO: log error?
         when "FieldMapper::Types::Plat"     then return plat_instance(type, value)
         when "FieldMapper::Types::List"     then
           return value if value.is_a?(Array) && value.empty?

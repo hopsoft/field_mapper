@@ -125,6 +125,21 @@ module Standard
       assert field.cast(0) == false
     end
 
+    test "cast (Money USD)" do
+      field = FieldMapper::Standard::Field.new(:foo, type: Money)
+      assert field.cast("$100.00 USD") == Money.new(100_00, "USD")
+    end
+
+    test "cast (Money EUR)" do
+      field = FieldMapper::Standard::Field.new(:foo, type: Money)
+      assert field.cast("€100.00 EUR") == Money.new(100_00, "EUR")
+    end
+
+    test "cast (Money MXN)" do
+      field = FieldMapper::Standard::Field.new(:foo, type: Money)
+      assert field.cast("$100.00 MXN") == Money.new(100_00, "MXN")
+    end
+
     test "cast (List)" do
       field = FieldMapper::Standard::Field.new(:foo, type: FieldMapper::Types::List[Standard::PlatExample])
       list = []
