@@ -300,9 +300,5 @@ module Standard
       end
     end
 
-    test "foo" do
-      assert false
-    end
-
   end
 end

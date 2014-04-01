@@ -216,5 +216,5 @@ You can also opt out of generated meta data.
 jon.to_hash(include_meta: false)
 ```
 
-Have a look at the tests to better understand what's possible.
+Have a [look at the tests](https://github.com/hopsoft/field_mapper/tree/master/test) to better understand what's possible.
 
