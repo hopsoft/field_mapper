@@ -65,7 +65,7 @@ Twitter users as represented by their respective APIs.
     class FacebookUser < FieldMapper::Custom::Plat
       set_standard User
 
-      field :name,     standard: name
+      field :name,     standard: :name
       field :username, standard: :screen_name
       field :bio,      standard: :info
       field :website,  standard: :website
@@ -78,7 +78,7 @@ Twitter users as represented by their respective APIs.
     class TwitterUser < FieldMapper::Custom::Plat
       set_standard User
 
-      field :name,        standard: name
+      field :name,        standard: :name
       field :screen_name, standard: :screen_name
       field :description, standard: :info
       field :url,         standard: :website
@@ -110,7 +110,7 @@ Suppose we wanted to ensure that Facebook user's bios don't include the word "Fa
 
     ```ruby
     class FacebookUser < FieldMapper::Custom::Plat
-      field :name,     standard: name
+      field :name,     standard: :name
       field :username, standard: :screen_name
       field :bio,      standard: :info,
         custom_to_standard: -> (value, standard_instance: nil) { value.gsub /facebook/i, "FFFFFUUUUUUUU" },
