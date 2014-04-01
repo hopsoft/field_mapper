@@ -168,7 +168,7 @@ module FieldMapper
 
       def plat_values
         self.class.plat_fields.values.reduce([]) do |memo, field|
-          value = send(field.name)
+          value = send(attr_name(field.name))
           memo << value if field.plat?
           memo.concat value if field.plat_list?
           memo
