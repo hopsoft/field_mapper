@@ -7,13 +7,13 @@
 
 Data mapping & transformation with Ruby
 
+> I know companies that employ 30+ people to manage tasks that this library can handle.
+
 ## Uses
 
 - Mapping data between 2 or more formats
 - Transforming data with complex rules
 - Defining data standards
-
-> I know companies that employ 30+ people to manage tasks that this library can handle.
 
 ## Overview
 
