@@ -1,6 +1,7 @@
 # FieldMapper
 
 [![Build Status](https://travis-ci.org/hopsoft/field_mapper.png)](https://travis-ci.org/hopsoft/field_mapper)
+[![Coverage Status](https://coveralls.io/repos/hopsoft/field_mapper/badge.png)](https://coveralls.io/r/hopsoft/field_mapper)
 [![Dependency Status](https://gemnasium.com/hopsoft/field_mapper.png)](https://gemnasium.com/hopsoft/field_mapper)
 [![Code Climate](https://codeclimate.com/github/hopsoft/field_mapper.png)](https://codeclimate.com/github/hopsoft/field_mapper)
 
