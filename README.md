@@ -5,17 +5,17 @@
 [![Dependency Status](https://gemnasium.com/hopsoft/field_mapper.png)](https://gemnasium.com/hopsoft/field_mapper)
 [![Code Climate](https://codeclimate.com/github/hopsoft/field_mapper.png)](https://codeclimate.com/github/hopsoft/field_mapper)
 
-Data mapping & transformation with Ruby
+## Data mapping & transformation with Ruby
 
 > I know companies that employ 30+ people to manage tasks that this library can handle.
 
-## Uses
+### Uses
 
 - Mapping data between 2 or more formats
 - Transforming data with complex rules
 - Defining data standards
 
-## Overview
+### Overview
 
 FieldMapper introduces a new term for a model like data structure
 to avoid possible confusion with libraries like ActiveRecord.
