@@ -1,9 +1,15 @@
-require_relative "../lib/field_mapper"
 require "simplecov"
-require 'coveralls'
-SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+
+if ENV["CI"]
+  require "coveralls"
+  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+end
+
 SimpleCov.command_name "micro_test"
 SimpleCov.start do
   add_filter "/test/"
 end
-Coveralls.wear!
+
+Coveralls.wear! if ENV["CI"]
+
+require_relative "../lib/field_mapper"
