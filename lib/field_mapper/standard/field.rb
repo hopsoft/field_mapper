@@ -111,10 +111,14 @@ module FieldMapper
         case type.name
         when "String"                       then return value.to_s.strip
         when "FieldMapper::Types::Boolean"  then return FieldMapper::Types::Boolean.parse(value)
-        when "Time"                         then return Time.parse(value.to_s) rescue nil # TODO: log error?
+        when "Time"                         then
+          return value if value.is_a?(Time)
+          return Time.parse(value.to_s) rescue nil
         when "Integer"                      then return value.to_i
         when "Float"                        then return value.to_f
-        when "Money"                        then return Monetize.parse(value) rescue nil # TODO: log error?
+        when "Money"                        then
+          return value if value.is_a?(Money)
+          return Monetize.parse(value) rescue nil
         when "FieldMapper::Types::Plat"     then return plat_instance(type, value)
         when "FieldMapper::Types::List"     then
           return value if value.is_a?(Array) && value.empty?
