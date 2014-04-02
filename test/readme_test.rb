@@ -9,23 +9,29 @@ class ReadmeTest < MicroTest::Test
       field :screen_name, type: String
       field :info,        type: String
       field :website,     type: String
+
       # field with allowed values
       field :gender,      type: String do
         value "F"
         value "M"
       end
+
       field :age,         type: Integer
+
       # field with a default value
       field :net_worth,   type: Money, default: 0
+
       # field that holds a list of plats
       field :friends,     type: FieldMapper::Types::List[StandardUser], default: []
     end
 
     class FacebookUser < FieldMapper::Custom::Plat
-      set_standard StandardUser # note we set the standard
+      # note that we set the standard
+      set_standard StandardUser
 
-      # mapped fields
+      # fields are mapped to the standard
       field :name,      standard: :name
+
       # field with complex transformation rules
       field :username,  standard: :screen_name,
         custom_to_standard: -> (value, standard_instance: nil) {
@@ -38,15 +44,19 @@ class ReadmeTest < MicroTest::Test
           # value returned is the custom value
           value.to_s.split(/:/).last
         }
+
       field :bio,       standard: :info
       field :website,   standard: :website
+
+      # field with mapped values
       field :gender,    standard: :gender do
-        # mapped values
         value "female", standard: "F"
         value "male",   standard: "M"
       end
+
       field :net_worth, standard: :net_worth
       field :friends,   standard: :friends, type: FieldMapper::Types::List[FacebookUser], default: []
+
       # not all custom fields are required to map to a standard
       field :birthday,  type: Time
     end
@@ -66,6 +76,7 @@ class ReadmeTest < MicroTest::Test
       field :url,             standard: :website
       field :followers_count, type: Integer
 
+      # callback method that runs after tranformation
       def after_convert(from: nil, to: nil)
         if from.respond_to? :friends
           self.followers_count = from.friends.length
@@ -89,7 +100,6 @@ class ReadmeTest < MicroTest::Test
     converter = FieldMapper::Custom::Converter.new(zuck)
     standard_zuck = converter.convert_to_standard
 
-    $NATE = true
     converter = FieldMapper::Custom::Converter.new(zuck)
     twitter_zuck = converter.convert_to(TwitterUser)
 
@@ -98,8 +108,12 @@ class ReadmeTest < MicroTest::Test
     twitter_zuck2 = converter.convert_to(TwitterUser)
 
     zuck_hash = zuck.to_hash
+    zuck_flat_hash = zuck.to_hash(flatten: true)
+    zuck_from_hash = FacebookUser.new(zuck_hash)
+    zuck_from_flat_hash = FacebookUser.new(zuck_flat_hash)
 
-    assert false
+    # TODO: break tests up & add some asserts
+    #assert false
   end
 
 end

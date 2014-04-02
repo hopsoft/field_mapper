@@ -55,14 +55,18 @@ Suppose we want to perform a mapping between Facebook users & Twitter users.
       field :screen_name, type: String
       field :info,        type: String
       field :website,     type: String
+
       # field with allowed values
       field :gender,      type: String do
         value "F"
         value "M"
       end
+
       field :age,         type: Integer
+
       # field with a default value
       field :net_worth,   type: Money, default: 0
+
       # field that holds a list of plats
       field :friends,     type: FieldMapper::Types::List[StandardUser], default: []
     end
@@ -72,10 +76,12 @@ Suppose we want to perform a mapping between Facebook users & Twitter users.
 
     ```ruby
     class FacebookUser < FieldMapper::Custom::Plat
-      set_standard StandardUser # note we set the standard
+      # note that we set the standard
+      set_standard StandardUser
 
-      # mapped fields
+      # fields are mapped to the standard
       field :name,      standard: :name
+
       # field with complex transformation rules
       field :username,  standard: :screen_name,
         custom_to_standard: -> (value, standard_instance: nil) {
@@ -88,16 +94,21 @@ Suppose we want to perform a mapping between Facebook users & Twitter users.
           # value returned is the custom value
           value.to_s.split(/:/).last
         }
+
       field :bio,       standard: :info
       field :website,   standard: :website
+
+      # field with mapped values
       field :gender,    standard: :gender do
-        # mapped values
         value "female", standard: "F"
         value "male",   standard: "M"
       end
+
+      field :net_worth, standard: :net_worth
+      field :friends,   standard: :friends, type: FieldMapper::Types::List[FacebookUser], default: []
+
       # not all custom fields are required to map to a standard
       field :birthday,  type: Time
-      field :friends,   standard: :friends, default: []
     end
     ```
 
@@ -117,13 +128,14 @@ Suppose we want to perform a mapping between Facebook users & Twitter users.
         }
       field :description,     standard: :info
       field :url,             standard: :website
-      field :followers_count, standard: :friends, default: [],
-        standard_to_custom: -> (value, standard_instance: nil) {
-          value.length
-        },
-        custom_to_standard: -> (value, standard_instance: nil) {
-          []
-        }
+      field :followers_count, type: Integer
+
+      # callback method that runs after tranformation
+      def after_convert(from: nil, to: nil)
+        if from.respond_to? :friends
+          self.followers_count = from.friends.length
+        end
+      end
     end
     ```
 
@@ -137,6 +149,7 @@ Suppose we want to perform a mapping between Facebook users & Twitter users.
       website: "http://www.facebook.com/zuck",
       gender: "male",
       age: 29,
+      net_worth: "$29,000,000,000 USD", # value will be cast to a Money
       birthday: "1984-05-14" # value will be cast to a Time
     )
 
@@ -161,23 +174,61 @@ Suppose we want to perform a mapping between Facebook users & Twitter users.
 
     ```ruby
     converter = FieldMapper::Standard::Converter.new(standard_zuck)
-    zuck2 = converter.converter_to(FacebookUser)
-    twitter_zuck2 = converter.converter_to(TwitterUser)
+    zuck_from_standard = converter.convert_to(FacebookUser)
+    twitter_zuck_from_standard = converter.convert_to(TwitterUser)
     ```
 
 8. Dump the zuck to a Hash.
 
     ```ruby
     zuck_hash = zuck.to_hash
+    {
+      "_node_id"  => 70260402777020,
+      "_flat"     => false,
+      "name"      => "Mark Zuckerberg",
+      "username"  => "zuck",
+      "bio"       => "Creator of Facebook",
+      "website"   => "http://www.facebook.com/zuck",
+      "gender"    => "male",
+      "net_worth" => "$29,000,000,000.00 USD",
+      "friends"   => [
+        {
+          "_node_id"  => 70260401841760,
+          "_flat"     => false,
+          "name"      => "Priscilla Chan",
+          "username"  => nil,
+          "bio"       => nil,
+          "website"   => nil,
+          "gender"    => nil,
+          "net_worth" => nil,
+          "friends"   => [],
+          "birthday"  => nil
+        }
+      ],
+      "birthday" => "1984-05-14T06:00:00Z"
+    }
 
-    # produces this data structure
-
+    zuck_flat_hash = zuck.to_hash(flatten: true)
+    {
+      "_node_id"  => 70260402777020,
+      "_flat"     => true,
+      "name"      => "Mark Zuckerberg",
+      "username"  => "zuck",
+      "bio"       => "Creator of Facebook",
+      "website"   => "http://www.facebook.com/zuck",
+      "gender"    => "male",
+      "net_worth" => "$29,000,000,000.00 USD",
+      "friends"   => "[{\"_node_id\":70260401841760,\"_flat\":true,\"name\":\"Priscilla Chan\",\"username\":null,\"bio\":null,\"website\":null,\"gender\":null,\"net_worth\":null,\"friends\":[],\"birthday\":null}]",
+      "birthday"  => "1984-05-14T06:00:00Z"
+    }
     ```
 
-### Converting to Hash
+9. Reconstruct zuck from a Hash.
 
-Sometimes it's useful to dump a plat to a Hash structure.
-Continuing with the previous example, we can do the following.
+    ```ruby
+    zuck_from_hash = FacebookUser.new(zuck_hash)
+    zuck_from_flat_hash = FacebookUser.new(zuck_flat_hash)
+    ```
 
 Dig into [the tests](https://github.com/hopsoft/field_mapper/tree/master/test) to learn more.
 

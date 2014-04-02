@@ -142,7 +142,7 @@ module FieldMapper
             when "Money" then
               value = value.format(with_currency: true)
             when "Time" then
-              value = value.utc.strftime("%Y-%m-%d %H:%M:%S.%L %z")
+              value = value.utc.iso8601
             end
           end
 
@@ -170,7 +170,7 @@ module FieldMapper
         self.class.plat_fields.values.reduce([]) do |memo, field|
           value = send(attr_name(field.name))
           memo << value if field.plat?
-          memo.concat value if field.plat_list?
+          memo.concat value if field.plat_list? && !value.nil?
           memo
         end
       end
