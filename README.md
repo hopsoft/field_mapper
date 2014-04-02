@@ -17,8 +17,8 @@
 
 ### Overview
 
-FieldMapper introduces a new term for a model like data structure
-to avoid possible confusion with libraries like ActiveRecord.
+FieldMapper introduces a new term for a model-like data structure
+to avoid possible confusion with libraries such as ActiveRecord.
 
 This new term is: **Plat**
 
