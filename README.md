@@ -99,7 +99,7 @@ Suppose we want to perform a mapping between Facebook users & Twitter users.
 
       field :friends,
         standard: :friends,
-        type: FieldMapper::Types::List[FacebookUser],
+        type: FieldMapper::Types::List[FacebookUser], # <- lists must define type even when mapped to a standard
         default: []
 
       # field with complex transformation rules
