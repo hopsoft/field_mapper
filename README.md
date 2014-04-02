@@ -55,20 +55,23 @@ Suppose we want to perform a mapping between Facebook users & Twitter users.
       field :screen_name, type: String
       field :info,        type: String
       field :website,     type: String
+      field :age,         type: Integer
 
       # field with allowed values
-      field :gender,      type: String do
+      field :gender, type: String do
         value "F"
         value "M"
       end
 
-      field :age,         type: Integer
-
       # field with a default value
-      field :net_worth,   type: Money, default: 0
+      field :net_worth,
+        type: Money,
+        default: 0
 
       # field that holds a list of plats
-      field :friends,     type: FieldMapper::Types::List[StandardUser], default: []
+      field :friends,
+        type: FieldMapper::Types::List[StandardUser],
+        default: []
     end
     ```
 
@@ -81,9 +84,27 @@ Suppose we want to perform a mapping between Facebook users & Twitter users.
 
       # fields are mapped to the standard
       field :name,      standard: :name
+      field :bio,       standard: :info
+      field :website,   standard: :website
+      field :net_worth, standard: :net_worth
+
+      # field with mapped values
+      field :gender,    standard: :gender do
+        value "female", standard: "F"
+        value "male",   standard: "M"
+      end
+
+      # some fields don't map to a standard
+      field :birthday, type: Time
+
+      field :friends,
+        standard: :friends,
+        type: FieldMapper::Types::List[FacebookUser],
+        default: []
 
       # field with complex transformation rules
-      field :username,  standard: :screen_name,
+      field :username,
+        standard: :screen_name,
         custom_to_standard: -> (value, standard_instance: nil) {
           # value passed is the custom value
           # value returned is the standard value
@@ -94,21 +115,6 @@ Suppose we want to perform a mapping between Facebook users & Twitter users.
           # value returned is the custom value
           value.to_s.split(/:/).last
         }
-
-      field :bio,       standard: :info
-      field :website,   standard: :website
-
-      # field with mapped values
-      field :gender,    standard: :gender do
-        value "female", standard: "F"
-        value "male",   standard: "M"
-      end
-
-      field :net_worth, standard: :net_worth
-      field :friends,   standard: :friends, type: FieldMapper::Types::List[FacebookUser], default: []
-
-      # not all custom fields are required to map to a standard
-      field :birthday,  type: Time
     end
     ```
 
@@ -119,6 +125,10 @@ Suppose we want to perform a mapping between Facebook users & Twitter users.
       set_standard StandardUser
 
       field :name,            standard: :name
+      field :description,     standard: :info
+      field :url,             standard: :website
+      field :followers_count, type: Integer
+
       field :screen_name,     standard: :screen_name,
         custom_to_standard: -> (value, standard_instance: nil) {
           "Twitter:#{value.to_s.strip}"
@@ -126,9 +136,6 @@ Suppose we want to perform a mapping between Facebook users & Twitter users.
         standard_to_custom: -> (value, standard_instance: nil) {
           value.to_s.split(/:/).last
         }
-      field :description,     standard: :info
-      field :url,             standard: :website
-      field :followers_count, type: Integer
 
       # callback method that runs after tranformation
       def after_convert(from: nil, to: nil)
