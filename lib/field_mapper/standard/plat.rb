@@ -86,7 +86,7 @@ module FieldMapper
         end
       end
 
-      def after_convert(converted_instance)
+      def after_convert(from: nil, to: nil)
         # abstract method to be implemented by subclasses
       end
 
