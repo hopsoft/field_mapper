@@ -18,19 +18,7 @@ module FieldMapper
         standard_instance = standard_plat.new
 
         custom_plat.fields.each do |custom_field_name, custom_field|
-          if custom_field.plat?
-            custom_plat_value = custom_instance[custom_field_name]
-            if custom_plat_value
-              converter = FieldMapper::Custom::Converter.new(custom_plat_value)
-              converter.convert_to_standard
-            end
-          elsif custom_field.plat_list?
-            custom_plat_values = custom_instance[custom_field_name] || []
-            standard_plats = custom_plat_values.map do |custom_plat_value|
-              FieldMapper::Custom::Converter.new(custom_plat_value).convert_to_standard
-            end
-            standard_instance[custom_field.standard_field.name] = standard_plats
-          elsif custom_field.standard_field.present?
+          if custom_field.standard_field.present?
             raw_standard_value = get_raw_standard_value(
               custom_field,
               custom_instance[custom_field_name],
