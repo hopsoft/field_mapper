@@ -7,7 +7,7 @@
 
 ## Data mapping & transformation with Ruby
 
-> I know of companies that employ 30+ people to manage tasks that this library can handle.
+> I know of companies that employ 30+ people to manage tasks this library can handle.
 
 ### Uses
 
