@@ -27,7 +27,10 @@ module FieldMapper
           end
         end
 
-        standard_instance.send(:after_convert, custom_instance)
+        [standard_instance, custom_instance].each do |instance|
+          instance.send(:after_convert, from: standard_instance, to: custom_instance)
+        end
+
         custom_instance
       end
 

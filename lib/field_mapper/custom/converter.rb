@@ -29,15 +29,16 @@ module FieldMapper
           end
         end
 
-        custom_instance.send(:after_convert, standard_instance)
+        [custom_instance, standard_instance].each do |instance|
+          instance.send(:after_convert, from: custom_instance, to: standard_instance)
+        end
+
         standard_instance
       end
 
       def convert_to(custom_plat)
         converter = FieldMapper::Standard::Converter.new(convert_to_standard)
-        converted_instance = converter.convert_to(custom_plat)
-        custom_instance.send(:after_convert, converted_instance)
-        converted_instance
+        converter.convert_to(custom_plat)
       end
 
       protected
