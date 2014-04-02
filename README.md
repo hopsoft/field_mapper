@@ -237,5 +237,8 @@ Suppose we want to perform a mapping between Facebook users & Twitter users.
     zuck_from_flat_hash = FacebookUser.new(zuck_flat_hash)
     ```
 
-Dig into [the tests](https://github.com/hopsoft/field_mapper/tree/master/test) to learn more.
+This is powerful stuff.
+I invite you to play around & experiment with it.
+
+Read through [the tests](https://github.com/hopsoft/field_mapper/tree/master/test) for more detail.
 
