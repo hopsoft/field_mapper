@@ -47,7 +47,7 @@ The supported datatypes are:
 
 Suppose we want to perform a mapping between Facebook users & Twitter users.
 
-1. Define a standard user class.
+1. First we need to define a standard user class.
 
     ```ruby
     class StandardUser < FieldMapper::Standard::Plat
@@ -75,7 +75,7 @@ Suppose we want to perform a mapping between Facebook users & Twitter users.
     end
     ```
 
-2. Define a Facebook user class.
+2. Next we define a Facebook user class that maps onto our standard.
 
     ```ruby
     class FacebookUser < FieldMapper::Custom::Plat
@@ -118,7 +118,7 @@ Suppose we want to perform a mapping between Facebook users & Twitter users.
     end
     ```
 
-3. Define a Twitter user class.
+3. Then we define a Twitter user class that maps onto our standard.
 
     ```ruby
     class TwitterUser < FieldMapper::Custom::Plat
@@ -146,7 +146,7 @@ Suppose we want to perform a mapping between Facebook users & Twitter users.
     end
     ```
 
-4. Construct a FacebookUser.
+4. Now we can construct a Facebook user.
 
     ```ruby
     zuck = FacebookUser.new(
@@ -163,21 +163,21 @@ Suppose we want to perform a mapping between Facebook users & Twitter users.
     zuck.friends << FacebookUser.new(name: "Priscilla Chan")
     ```
 
-5. Transform zuck to a StandardUser.
+5. We can also transform our Facebook user to a standard user.
 
     ```ruby
     converter = FieldMapper::Custom::Converter.new(zuck)
     standard_zuck = converter.convert_to_standard
     ```
 
-6. Transform zuck to a TwitterUser.
+6. We can also transform our Facebook user to a Twitter user.
 
     ```ruby
     converter = FieldMapper::Custom::Converter.new(zuck)
     twitter_zuck = converter.convert_to(TwitterUser)
     ```
 
-7. Transform standard_zuck to both.
+7. We can transform a standard user into both a Facebook & Twitter user.
 
     ```ruby
     converter = FieldMapper::Standard::Converter.new(standard_zuck)
@@ -185,7 +185,7 @@ Suppose we want to perform a mapping between Facebook users & Twitter users.
     twitter_zuck_from_standard = converter.convert_to(TwitterUser)
     ```
 
-8. Dump the zuck to a Hash.
+8. We can emit our objects as a Hash.
 
     ```ruby
     zuck_hash = zuck.to_hash
@@ -230,7 +230,7 @@ Suppose we want to perform a mapping between Facebook users & Twitter users.
     }
     ```
 
-9. Reconstruct zuck from a Hash.
+9. We can also reconstruct instances from a Hash.
 
     ```ruby
     zuck_from_hash = FacebookUser.new(zuck_hash)
