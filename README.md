@@ -45,6 +45,15 @@ The supported datatypes are:
 
 *__Note:__ The examples below highlight most of the features; though, they are painfully contrived.*
 
+```sh
+gem install field_mapper
+```
+
+```ruby
+# Gemfile
+gem "field_mapper"
+```
+
 Suppose we want to perform a mapping between Facebook users & Twitter users.
 
 1. First we need to define a standard user class.
@@ -238,7 +247,6 @@ Suppose we want to perform a mapping between Facebook users & Twitter users.
     ```
 
 This is powerful stuff.
-I invite you to play around & experiment with it.
-
+I invite you to play around & experiment.
 Read through [the tests](https://github.com/hopsoft/field_mapper/tree/master/test) for more detail.
 
