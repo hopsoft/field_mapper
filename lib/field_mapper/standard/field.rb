@@ -109,21 +109,16 @@ module FieldMapper
       def cast_value(type, value, as_single_value: false)
         return nil if value.nil?
         case type.name
-        when "String"                       then return value.to_s.strip
-        when "FieldMapper::Types::Boolean"  then return FieldMapper::Types::Boolean.parse(value)
-        when "Time"                         then
-          return value if value.is_a?(Time)
-          return Time.parse(value.to_s) rescue nil
+        when "String"                       then return string(value)
+        when "FieldMapper::Types::Boolean"  then return boolean(value)
+        when "Time"                         then return time(value)
         when "Integer"                      then return value.to_i
         when "Float"                        then return value.to_f
-        when "Money"                        then
-          return value if value.is_a?(Money)
-          return Monetize.parse(value) rescue nil
+        when "Money"                        then return money(value)
         when "FieldMapper::Types::Plat"     then return plat_instance(type, value)
         when "FieldMapper::Types::List"     then
-          return value if value.is_a?(Array) && value.empty?
-          return plat_instance_list(type, value) if type.plat_list?
           return cast_value(type.type, value) if as_single_value
+          return plat_instance_list(type, value) if type.plat_list?
           get_list value
         else
           nil
@@ -141,6 +136,26 @@ module FieldMapper
         value & raw_values
       end
 
+      def string(value)
+        return value if value.is_a?(String)
+        value.to_s.strip
+      end
+
+      def boolean(value)
+        return value if value.is_a?(TrueClass) || value.is_a?(FalseClass)
+        FieldMapper::Types::Boolean.parse(value)
+      end
+
+      def time(value)
+        return value if value.is_a?(Time)
+        Time.parse(value.to_s) rescue nil
+      end
+
+      def money(value)
+        return value if value.is_a?(Money)
+        return Monetize.parse(value) rescue nil
+      end
+
       def plat_instance(type, value)
         return value if value.is_a?(FieldMapper::Standard::Plat)
         return value if value.is_a?(Numeric)
@@ -151,7 +166,7 @@ module FieldMapper
       end
 
       def plat_instance_list(type, value)
-        return value if value.empty?
+        return value if value.is_a?(Array) && value.empty?
         value = unmarshal(value) if value.is_a?(String)
         return value.map { |val| plat_instance(type, val) }
       end
