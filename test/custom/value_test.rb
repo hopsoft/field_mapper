@@ -12,7 +12,7 @@ module Custom
       begin
         custom_field = FieldMapper::Custom::Field.new(:bar, type: Integer)
         FieldMapper::Custom::Value.new(1, field: custom_field, standard_value: 1)
-      rescue StandardFieldNotFound => e
+      rescue FieldMapper::StandardFieldNotFound => e
         error = e
       end
       assert error.present?
@@ -21,7 +21,7 @@ module Custom
     test "constructor ensures standard_value exists" do
       begin
         FieldMapper::Custom::Value.new("a", field: @custom_field, standard_value: "a")
-      rescue StandardValueNotFound => e
+      rescue FieldMapper::StandardValueNotFound => e
         error = e
       end
       assert error.present?

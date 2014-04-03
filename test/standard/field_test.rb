@@ -7,7 +7,7 @@ module Standard
     test "constructor requires type" do
       begin
         FieldMapper::Standard::Field.new(:foo)
-      rescue TypeNotSpecified => e
+      rescue FieldMapper::TypeNotSpecified => e
         error = e
       end
       assert error.present?

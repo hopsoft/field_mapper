@@ -6,7 +6,7 @@ class ListTest < MicroTest::Test
   test "initialize fails with instance type" do
     begin
       FieldMapper::Types::List.new("")
-    rescue InvalidListType => error
+    rescue FieldMapper::InvalidListType => error
     end
     assert !error.nil?
   end
@@ -14,7 +14,7 @@ class ListTest < MicroTest::Test
   test "initialize fails with invalid type" do
     begin
       FieldMapper::Types::List.new(Object)
-    rescue InvalidListType => error
+    rescue FieldMapper::InvalidListType => error
     end
     assert !error.nil?
   end

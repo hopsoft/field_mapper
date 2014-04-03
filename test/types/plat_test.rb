@@ -6,7 +6,7 @@ class PlatTest < MicroTest::Test
   test "initialize fails with instance type" do
     begin
       FieldMapper::Types::Plat.new("")
-    rescue InvalidPlatType => error
+    rescue FieldMapper::InvalidPlatType => error
     end
     assert !error.nil?
   end
@@ -14,7 +14,7 @@ class PlatTest < MicroTest::Test
   test "initialize fails with non plat type" do
     begin
       FieldMapper::Types::Plat.new(String)
-    rescue InvalidPlatType => error
+    rescue FieldMapper::InvalidPlatType => error
     end
     assert !error.nil?
   end
@@ -22,7 +22,7 @@ class PlatTest < MicroTest::Test
   test "initialize succeeds with plat type" do
     begin
       FieldMapper::Types::Plat.new(Standard::PlatExample)
-    rescue InvalidPlatType => error
+    rescue FieldMapper::InvalidPlatType => error
     end
     assert error.nil?
   end
@@ -30,7 +30,7 @@ class PlatTest < MicroTest::Test
   test "[] construction" do
     begin
       FieldMapper::Types::Plat[Standard::PlatExample]
-    rescue InvalidPlatType => error
+    rescue FieldMapper::InvalidPlatType => error
     end
     assert error.nil?
   end
