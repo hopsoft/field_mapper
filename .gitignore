@@ -18,3 +18,4 @@ tmp
 .DS_Store
 .ruby-version
 tags
+*.swp
