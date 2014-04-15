@@ -148,7 +148,7 @@ module FieldMapper
 
       def time(value)
         return value if value.is_a?(Time)
-        Time.parse(value.to_s) rescue nil
+        Time.parse(value.to_s).utc rescue nil
       end
 
       def money(value)
