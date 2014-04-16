@@ -105,7 +105,7 @@ module Standard
 
     test "cast (Time)" do
       field = FieldMapper::Standard::Field.new(:foo, type: Time)
-      expected = Time.parse("2000-01-15")
+      expected = ActiveSupport::TimeZone["UTC"].parse("2000-01-15").to_time.utc
       assert field.cast("01/15/2000") == expected
     end
 
