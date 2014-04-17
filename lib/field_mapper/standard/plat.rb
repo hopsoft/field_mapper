@@ -103,7 +103,7 @@ module FieldMapper
         instance_variable_set "@#{attr_name(field_name)}", field.cast(value)
       end
 
-      def to_hash(flatten: false, history: {}, include_meta: true)
+      def to_hash(flatten: false, history: {}, include_meta: true, placeholders: false)
         history[object_id] = true
         hash = self.class.fields.values.reduce(HashWithIndifferentAccess.new) do |memo, field|
           name = field.name
@@ -146,6 +146,8 @@ module FieldMapper
             when "Time" then
               value = value.utc.iso8601
             end
+          else
+            value = field.placeholder if placeholders
           end
 
           memo[name] = value

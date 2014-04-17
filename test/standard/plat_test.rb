@@ -64,6 +64,10 @@ module Standard
       assert hash[:letters] == "[\"a\",\"b\"]"
     end
 
+    test "to_hash with placeholders" do
+      assert @instance.to_hash(placeholders: true)[:name] == "TYPE YOUR NAME"
+    end
+
     test "parent & children" do
       parent = Standard::PlatExample.new
       parent_id = parent.object_id

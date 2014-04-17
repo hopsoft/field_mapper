@@ -46,7 +46,7 @@ module FieldMapper
       attr_writer :placeholder
 
       def placeholder
-        @placeholder || standard_field.placeholder
+        @placeholder || (standard_field && standard_field.placeholder)
       end
 
       def value(value, standard: nil, priority: nil)
