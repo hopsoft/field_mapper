@@ -26,6 +26,7 @@ module FieldMapper
           type: nil,
           desc: nil,
           default: nil,
+          placeholder: nil,
           &block
         )
           field_names[attr_name(name)] = name
@@ -34,7 +35,8 @@ module FieldMapper
             name,
             type: type,
             desc: desc,
-            default: default
+            default: default,
+            placeholder: placeholder
           )
 
           field.instance_exec(&block) if block_given?

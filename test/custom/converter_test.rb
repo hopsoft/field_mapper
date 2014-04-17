@@ -119,5 +119,9 @@ module Custom
       assert standard.letters = ["a", "c"]
     end
 
+    test "converted_to different datatype mapped to standard" do
+
+    end
+
   end
 end

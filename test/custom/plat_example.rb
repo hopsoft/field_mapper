@@ -54,5 +54,10 @@ module Custom
     field :parent_plat, type: FieldMapper::Types::Plat[Custom::PlatExample], standard: :parent
     field :child_plats, type: FieldMapper::Types::List[Custom::PlatExample], standard: :children, default: []
 
+    field :time, standard: :timestamp, type: String,
+      standard_to_custom: -> (value, standard_instance: nil) {
+        value.strftime("%Y-%m-%m") unless value.nil?
+      }
+
   end
 end

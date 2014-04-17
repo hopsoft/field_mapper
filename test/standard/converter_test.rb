@@ -84,5 +84,15 @@ module Standard
       assert custom.parent_plat.to_hash.merge(_node_id: nil) == custom_parent.to_hash.merge(_node_id: nil)
     end
 
+    test "convert_to (different datatype)" do
+      @standard.timestamp = Time.now
+      custom = @converter.convert_to(Custom::PlatExample)
+      assert custom.time == @standard.timestamp.strftime("%Y-%m-%m")
+    end
+
+    test "placeholder" do
+      assert @standard.class.fields[:name].placeholder == "TYPE YOUR NAME"
+    end
+
   end
 end

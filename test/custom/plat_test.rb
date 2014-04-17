@@ -61,6 +61,7 @@ module Custom
         "color"       => nil,
         "painter"     => nil,
         "characters"  => nil,
+        "time"        => nil,
         "parent_plat" => {
           "_node_id"  => @instance.parent_plat.object_id,
           "_flat"       => false,
@@ -70,6 +71,7 @@ module Custom
           "color"       => nil,
           "painter"     => nil,
           "characters"  => nil,
+          "time"        => nil,
           "parent_plat" => nil,
           "child_plats" => []
         },
@@ -96,6 +98,10 @@ module Custom
           }
         ]
       }
+    end
+
+    test "placeholder" do
+      assert @instance.class.fields[:name].placeholder == "TYPE YOUR NAME"
     end
 
   end

@@ -23,13 +23,14 @@ module FieldMapper
         type: nil,
         desc: nil,
         default: nil,
+        placeholder: nil,
         standard_field: nil,
         custom_to_standard: DefaultFlipper,
         standard_to_custom: DefaultFlipper,
         &block
       )
         type ||= standard_field.type unless standard_field.nil?
-        super name, type: type, desc: desc, default: default
+        super name, type: type, desc: desc, default: default, placeholder: placeholder
 
         @standard_field = standard_field
         @custom_to_standard = custom_to_standard
@@ -40,6 +41,12 @@ module FieldMapper
           define_method :custom_to_standard1, &custom_to_standard
           define_method :standard_to_custom2, &standard_to_custom
         end
+      end
+
+      attr_writer :placeholder
+
+      def placeholder
+        @placeholder || standard_field.placeholder
       end
 
       def value(value, standard: nil, priority: nil)

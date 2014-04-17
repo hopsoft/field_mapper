@@ -12,20 +12,24 @@ module FieldMapper
         :type,
         :desc,
         :default,
-        :values
+        :values,
       )
+
+      attr_accessor :placeholder
 
       def initialize(
         name,
         type: nil,
         desc: nil,
-        default: nil
+        default: nil,
+        placeholder: nil
       )
         raise TypeNotSpecified.new("type not specified for: #{name}") if type.nil?
         @name = name.to_sym
         @type = type
         @desc= desc
         @default = default
+        @placeholder = placeholder
       end
 
       def list?

@@ -19,6 +19,7 @@ module FieldMapper
           type: nil,
           desc: nil,
           default: nil,
+          placeholder: nil,
           standard: nil,
           custom_to_standard: FieldMapper::Custom::Field::DefaultFlipper,
           standard_to_custom: FieldMapper::Custom::Field::DefaultFlipper,
@@ -31,6 +32,7 @@ module FieldMapper
             type: type,
             desc: desc,
             default: default,
+            placeholder: placeholder,
             standard_field: standard_plat.fields[standard],
             custom_to_standard: custom_to_standard,
             standard_to_custom: standard_to_custom

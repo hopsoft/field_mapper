@@ -108,6 +108,7 @@ module Standard
         "artist"     => nil,
         "day"        => nil,
         "letters"    => ["a", "b"],
+        "timestamp"  => nil,
         "parent"=>{
            "_node_id" => parent.object_id,
            "_flat"      => false,
@@ -120,6 +121,7 @@ module Standard
            "artist"     => nil,
            "day"        => nil,
            "letters"    => ["a", "b"],
+           "timestamp"  => nil,
            "parent"     => nil,
            "children"   => [@instance.object_id]
         },
@@ -136,6 +138,7 @@ module Standard
            "artist"     => nil,
            "day"        => nil,
            "letters"    => ["a", "b"],
+           "timestamp"  => nil,
            "parent"     => @instance.object_id,
            "children"   => []
           },
@@ -151,6 +154,7 @@ module Standard
            "artist"     => nil,
            "day"        => nil,
            "letters"    => ["a", "b"],
+           "timestamp"  => nil,
            "parent"     => @instance.object_id,
            "children"   => []
           }
@@ -183,8 +187,9 @@ module Standard
         "artist"     => nil,
         "day"        => nil,
         "letters"    => "[\"a\",\"b\"]",
-        "parent"     => "{\"_node_id\":#{parent.object_id},\"_flat\":true,\"name\":null,\"desc\":null,\"score\":2,\"color\":null,\"camelCase\":null,\"PascalCase\":null,\"artist\":null,\"day\":null,\"letters\":\"[\\\"a\\\",\\\"b\\\"]\",\"parent\":null,\"children\":\"[#{@instance.object_id}]\"}",
-        "children"   => "[{\"_node_id\":#{child1.object_id},\"_flat\":true,\"name\":null,\"desc\":null,\"score\":2,\"color\":null,\"camelCase\":null,\"PascalCase\":null,\"artist\":null,\"day\":null,\"letters\":\"[\\\"a\\\",\\\"b\\\"]\",\"parent\":#{@instance.object_id},\"children\":[]},{\"_node_id\":#{child2.object_id},\"_flat\":true,\"name\":null,\"desc\":null,\"score\":2,\"color\":null,\"camelCase\":null,\"PascalCase\":null,\"artist\":null,\"day\":null,\"letters\":\"[\\\"a\\\",\\\"b\\\"]\",\"parent\":#{@instance.object_id},\"children\":[]}]"
+        "timestamp"  => nil,
+        "parent"     => "{\"_node_id\":#{parent.object_id},\"_flat\":true,\"name\":null,\"desc\":null,\"score\":2,\"color\":null,\"camelCase\":null,\"PascalCase\":null,\"artist\":null,\"day\":null,\"letters\":\"[\\\"a\\\",\\\"b\\\"]\",\"parent\":null,\"children\":\"[#{@instance.object_id}]\",\"timestamp\":null}",
+        "children"   => "[{\"_node_id\":#{child1.object_id},\"_flat\":true,\"name\":null,\"desc\":null,\"score\":2,\"color\":null,\"camelCase\":null,\"PascalCase\":null,\"artist\":null,\"day\":null,\"letters\":\"[\\\"a\\\",\\\"b\\\"]\",\"parent\":#{@instance.object_id},\"children\":[],\"timestamp\":null},{\"_node_id\":#{child2.object_id},\"_flat\":true,\"name\":null,\"desc\":null,\"score\":2,\"color\":null,\"camelCase\":null,\"PascalCase\":null,\"artist\":null,\"day\":null,\"letters\":\"[\\\"a\\\",\\\"b\\\"]\",\"parent\":#{@instance.object_id},\"children\":[],\"timestamp\":null}]"
       }
 
       actual = @instance.to_hash(flatten: true)

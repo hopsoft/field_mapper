@@ -3,7 +3,7 @@ require_relative "../test_helper"
 module Standard
   class PlatExample < FieldMapper::Standard::Plat
 
-    field :name, type: String
+    field :name, type: String, placeholder: "TYPE YOUR NAME"
     field :desc, type: String
 
     field :score, default: 2, type: Integer do
@@ -43,6 +43,8 @@ module Standard
 
     field :parent, type: FieldMapper::Types::Plat[Standard::PlatExample]
     field :children, type: FieldMapper::Types::List[Standard::PlatExample], default: []
+
+    field :timestamp, type: Time
 
   end
 end
