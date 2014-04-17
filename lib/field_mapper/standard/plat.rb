@@ -116,7 +116,12 @@ module FieldMapper
                 oid = value.object_id
                 if history[oid].nil?
                   history[oid] = true
-                  value = value.to_hash(flatten: flatten, history: history, include_meta: include_meta)
+                  value = value.to_hash(
+                    flatten: flatten,
+                    history: history,
+                    include_meta: include_meta,
+                    placeholders: placeholders
+                  )
                   value = marshal(value) if flatten
                 else
                   value = oid
@@ -131,7 +136,12 @@ module FieldMapper
                     oid = val.object_id
                     if history[oid].nil?
                       history[oid] = true
-                      val.to_hash(flatten: flatten, history: history, include_meta: include_meta)
+                      val.to_hash(
+                        flatten: flatten,
+                        history: history,
+                        include_meta: include_meta,
+                        placeholders: placeholders
+                      )
                     else
                       oid
                     end
