@@ -148,7 +148,9 @@ module FieldMapper
 
       def time(value)
         return value.utc if value.is_a?(Time)
-        ActiveSupport::TimeZone["UTC"].parse(value).to_time.utc rescue nil
+        return value.to_time.utc if value.is_a?(Date)
+        return value.to_time(:utc) if value.is_a?(String)
+        nil
       end
 
       def money(value)
