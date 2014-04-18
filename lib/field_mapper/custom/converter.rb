@@ -44,15 +44,15 @@ module FieldMapper
       protected
 
       def get_raw_standard_value(custom_field, raw_custom_value, standard_instance)
-        if raw_custom_value.nil?
-          return [] if custom_field.standard_field.list_with_emtpy_default?
-          return nil
-        end
-
         strategy = custom_field.flip_strategy(:custom_to_standard)
         custom_flipper = custom_field.custom_flipper?(:custom_to_standard)
 
         if !custom_flipper
+          if raw_custom_value.nil?
+            return [] if custom_field.standard_field.list_with_emtpy_default?
+            return nil
+          end
+
           if custom_field.plat?
             return compute_raw_standard_value_for_plat(custom_field, raw_custom_value)
           end
