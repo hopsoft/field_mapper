@@ -36,6 +36,10 @@ module FieldMapper
         type.name == "FieldMapper::Types::List"
       end
 
+      def list_with_emtpy_default?
+        list? && default == []
+      end
+
       def plat?
         type.name == "FieldMapper::Types::Plat"
       end
