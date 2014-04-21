@@ -100,7 +100,7 @@ module FieldMapper
       def []=(field_name, value)
         field = self.class.find_field(field_name)
         raise FieldNotDefined if field.nil?
-        instance_variable_set "@#{attr_name(field_name)}", field.cast(value)
+        assign_param field_name, field.cast(value)
       end
 
       def to_hash(flatten: false, history: {}, include_meta: true, placeholders: false)
@@ -245,6 +245,9 @@ module FieldMapper
       end
 
       def assign_param(name, value)
+        if defined? before_assign_param
+          value = before_assign_param(name, value)
+        end
         instance_variable_set "@#{attr_name(name)}", value
       end
 
