@@ -1,4 +1,5 @@
 require "digest/md5"
+require "observer"
 require_relative "../errors"
 require_relative "../name_helper"
 require_relative "../marshaller"
@@ -7,6 +8,7 @@ require_relative "field"
 module FieldMapper
   module Standard
     class Plat
+      include Observable
       include FieldMapper::NameHelper
       include FieldMapper::Marshaller
 
@@ -100,7 +102,7 @@ module FieldMapper
       def []=(field_name, value)
         field = self.class.find_field(field_name)
         raise FieldNotDefined if field.nil?
-        assign_param field_name, field.cast(value)
+        assign_param field_name, cast_value(field, value)
       end
 
       def to_hash(flatten: false, history: {}, include_meta: true, placeholders: false)
@@ -180,6 +182,12 @@ module FieldMapper
 
       protected
 
+      def cast_value(field, value)
+        changed
+        notify_observers :before_cast, field.name.to_s, value
+        field.cast(value)
+      end
+
       def plat_values
         self.class.plat_fields.values.reduce([]) do |memo, field|
           value = send(attr_name(field.name))
@@ -224,7 +232,7 @@ module FieldMapper
           if !field.default.nil?
             value = field.default
             value = value.clone rescue value
-            assign_param name, field.cast(value)
+            assign_param name, cast_value(field, value)
           end
         end
       end
@@ -234,7 +242,7 @@ module FieldMapper
         params.each do |name, value|
           field = self.class.fields[name]
           next if field.nil?
-          value = field.cast(value)
+          value = cast_value(field, value)
           next if value.nil?
           next if field.list? && value.compact.empty?
           assign_param name, value
@@ -245,9 +253,6 @@ module FieldMapper
       end
 
       def assign_param(name, value)
-        if defined? before_assign_param
-          value = before_assign_param(name, value)
-        end
         instance_variable_set "@#{attr_name(name)}", value
       end
 
