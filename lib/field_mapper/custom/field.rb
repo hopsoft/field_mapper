@@ -91,7 +91,7 @@ module FieldMapper
       def find_values_mapped_to_standard(standard_value)
         values.select do |val|
           val.standard_value == standard_value ||
-            val.standard_value.value == standard_value
+            val.standard_value.try(:value) == standard_value
         end
       end
 
