@@ -1,5 +1,4 @@
 require "digest/md5"
-require "observer"
 require_relative "../errors"
 require_relative "../name_helper"
 require_relative "../marshaller"
@@ -8,7 +7,6 @@ require_relative "field"
 module FieldMapper
   module Standard
     class Plat
-      include Observable
       include FieldMapper::NameHelper
       include FieldMapper::Marshaller
 
@@ -182,10 +180,12 @@ module FieldMapper
 
       protected
 
+      def prep_raw_value(field_name, value)
+        value
+      end
+
       def cast_value(field, value)
-        changed
-        notify_observers :before_cast, field.name.to_s, value
-        field.cast(value)
+        field.cast prep_raw_value(field.name.to_s, value)
       end
 
       def plat_values
