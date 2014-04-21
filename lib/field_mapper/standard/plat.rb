@@ -224,7 +224,7 @@ module FieldMapper
           if !field.default.nil?
             value = field.default
             value = value.clone rescue value
-            instance_variable_set "@#{attr_name(field.name)}", field.cast(value)
+            assign_param name, field.cast(value)
           end
         end
       end
