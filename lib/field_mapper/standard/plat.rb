@@ -93,13 +93,13 @@ module FieldMapper
       end
 
       def [](field_name)
-        raise FieldNotDefined unless field_exists?(field_name)
+        raise FieldNotDefined.new("#{self.class.name} does not define: #{field_name}") unless field_exists?(field_name)
         instance_variable_get "@#{attr_name(field_name)}"
       end
 
       def []=(field_name, value)
         field = self.class.find_field(field_name)
-        raise FieldNotDefined if field.nil?
+        raise FieldNotDefined.new("#{self.class.name} does not define: #{field_name}") if field.nil?
         assign_param field_name, cast_value(field, value)
       end
 
@@ -157,7 +157,7 @@ module FieldMapper
               value = value.utc.iso8601
             end
           else
-            value = field.placeholder if placeholders
+            value = field.placeholder || field.default if placeholders
           end
 
           memo[name] = value
@@ -224,7 +224,7 @@ module FieldMapper
       end
 
       def field_exists?(field_name)
-        !!self.class.field_names[attr_name(field_name)]
+        !self.class.find_field(field_name).nil?
       end
 
       def assign_defaults
