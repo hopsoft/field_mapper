@@ -47,9 +47,6 @@ module FieldMapper
           define_method("#{attr_name name}=") do |value|
             self[name] = value
           end
-
-          define_method("custom_to_standard_#{name}", &custom_to_standard)
-          define_method("standard_to_custom_#{name}", &standard_to_custom)
         end
 
         def find_mapped_fields(standard_field)

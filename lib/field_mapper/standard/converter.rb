@@ -51,9 +51,7 @@ module FieldMapper
           end
 
           if custom_field.plat_list?
-            if custom_field.plat_list?
-              return compute_raw_custom_value_for_plat_list(custom_field, raw_standard_value)
-            end
+            return compute_raw_custom_value_for_plat_list(custom_field, raw_standard_value)
           end
         end
 
