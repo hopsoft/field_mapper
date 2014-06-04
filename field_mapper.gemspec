@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "american_date", "~> 1.1.0"
   spec.add_dependency "money",         "~> 6.1.1"
   spec.add_dependency "monetize"       #"~> 0.2.0"
-  spec.add_dependency "oj",            "~> 2.7.1"
+  spec.add_dependency "oj",            "2.7.1"
 
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"

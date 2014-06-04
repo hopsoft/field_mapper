@@ -60,6 +60,21 @@ module FieldMapper
             memo
           end
         end
+
+        def standard_keys_to_custom_keys(standard_params)
+          dict = fields_by_standard_name
+          standard_params.reduce({}) do |memo, standard_param|
+            key = standard_param.first
+            value = standard_param.last
+            field = dict[key.to_sym]
+            memo[field.name] = value unless field.nil?
+            memo
+          end
+        end
+
+        def new_from_standard_keyed_params(standard_params)
+          new standard_keys_to_custom_keys(standard_params)
+        end
       end
 
       def standard_name

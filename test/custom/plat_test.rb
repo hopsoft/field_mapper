@@ -23,6 +23,18 @@ module Custom
       assert @instance[:rating] == "A"
     end
 
+    test "standard_keys_to_custom_keys" do
+      standard_keyed_params = { score: "A" } # note that "A" is a custom value
+      custom_params = Custom::PlatExample.standard_keys_to_custom_keys(standard_keyed_params)
+      assert custom_params[:rating] == "A"
+    end
+
+    test "new_from_standard_keyed_params" do
+      standard_keyed_params = { score: "A" } # note that "A" is a custom value
+      instance = Custom::PlatExample.new_from_standard_keyed_params(standard_keyed_params)
+      assert instance[:rating] == "A"
+    end
+
     test "field mapping with value mappings" do
       custom_field = @class.find_field(:color)
       standard_field = @class.standard_plat.find_field(:color)
