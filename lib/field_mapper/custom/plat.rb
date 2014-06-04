@@ -2,6 +2,7 @@ require_relative "../standard/plat"
 require_relative "../errors"
 require_relative "../name_helper"
 require_relative "field"
+require_relative "field_access_by_standard_name"
 
 module FieldMapper
   module Custom
@@ -52,6 +53,17 @@ module FieldMapper
         def find_mapped_fields(standard_field)
           fields.values.select { |field| field.standard_field == standard_field }
         end
+
+        def fields_by_standard_name
+          fields.values.reduce({}) do |memo, field|
+            memo[field.standard_field.name] = field unless field.standard_field.nil?
+            memo
+          end
+        end
+      end
+
+      def standard_name
+        @standard_name ||= FieldAccessByStandardName.new(self)
       end
 
     end

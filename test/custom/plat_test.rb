@@ -17,6 +17,12 @@ module Custom
       assert @class.find_field(:name).standard_field == @class.standard_plat.find_field(:name)
     end
 
+    test "field access by standard_name" do
+      @instance.standard_name[:score] = "A"
+      assert @instance.standard_name[:score] == "A"
+      assert @instance[:rating] == "A"
+    end
+
     test "field mapping with value mappings" do
       custom_field = @class.find_field(:color)
       standard_field = @class.standard_plat.find_field(:color)
