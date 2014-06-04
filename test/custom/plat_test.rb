@@ -24,13 +24,36 @@ module Custom
     end
 
     test "standard_keys_to_custom_keys" do
-      standard_keyed_params = { score: "A" } # note that "A" is a custom value
+      standard_keyed_params = { score: "A" }
       custom_params = Custom::PlatExample.standard_keys_to_custom_keys(standard_keyed_params)
       assert custom_params[:rating] == "A"
     end
 
+    test "standard_keys_to_custom_keys recursive" do
+      standard_keyed_params = {
+        score: "A",
+        parent: { score: "B" },
+        children: [
+          { score: "A" },
+          { score: "B" },
+          { score: "C" }
+        ]
+      }
+
+      custom_params = Custom::PlatExample.standard_keys_to_custom_keys(standard_keyed_params)
+      assert custom_params == {
+        rating: "A",
+        parent_plat: { rating: "B" },
+        child_plats: [
+          { rating: "A" },
+          { rating: "B" },
+          { rating: "C"}
+        ]
+      }
+    end
+
     test "new_from_standard_keyed_params" do
-      standard_keyed_params = { score: "A" } # note that "A" is a custom value
+      standard_keyed_params = { score: "A" }
       instance = Custom::PlatExample.new_from_standard_keyed_params(standard_keyed_params)
       assert instance[:rating] == "A"
     end

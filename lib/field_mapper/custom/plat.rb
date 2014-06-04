@@ -61,13 +61,30 @@ module FieldMapper
           end
         end
 
-        # TODO: update to work recursively
         def standard_keys_to_custom_keys(standard_keyed_params)
           standard_keyed_params.reduce({}) do |memo, standard_param|
             key = standard_param.first
             value = standard_param.last
             field = fields_by_standard_name[key.to_sym]
-            memo[field.name] = value unless field.nil?
+
+            if !field.nil?
+              case field.type.name
+              when "FieldMapper::Types::Plat" then
+                if value.is_a?(Hash)
+                  value = field.type.type.standard_keys_to_custom_keys(value)
+                end
+              when "FieldMapper::Types::List" then
+                if field.type.type.ancestors.include?(Plat)
+                  if value.is_a?(Array)
+                    value = value.compact.map do |val|
+                      field.type.type.standard_keys_to_custom_keys(val)
+                    end
+                  end
+                end
+              end
+              memo[field.name] = value
+            end
+
             memo
           end
         end
