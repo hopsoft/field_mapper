@@ -18,7 +18,7 @@ module FieldMapper
 
       def initialize(type, values=[])
         if type.class != Class || !type.ancestors.include?(FieldMapper::Standard::Plat)
-          raise InvalidPlatType
+          raise InvalidPlatType.new("#{type} is not a valid plat type")
         end
 
         @type = type

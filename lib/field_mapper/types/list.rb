@@ -25,7 +25,7 @@ module FieldMapper
       end
 
       def initialize(type, values=[])
-        raise InvalidListType unless valid_type?(type)
+        raise InvalidListType.new("#{type} is not a supported list type") unless valid_type?(type)
         @type = type
       end
 

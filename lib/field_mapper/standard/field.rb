@@ -135,6 +135,7 @@ module FieldMapper
 
       def get_list(value)
         value = unmarshal(value) if value.is_a?(String)
+        raise InvalidListValue.new("#{name} is not a list") unless value.respond_to?(:map)
         value.map { |val| cast_value(type.type, val) }
       end
 
