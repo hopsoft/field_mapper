@@ -145,5 +145,9 @@ module Custom
       assert @instance.class.fields[:name].placeholder == "TYPE YOUR NAME"
     end
 
+    #test "basic mapped fields" do
+    #  assert false
+    #end
+
   end
 end

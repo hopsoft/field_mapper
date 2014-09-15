@@ -50,6 +50,14 @@ module FieldMapper
           end
         end
 
+        def basic_mapped_fields(*names)
+          names.each { |name| basic_mapped_field(name) }
+        end
+
+        def basic_mapped_field(name)
+          field name, standard: name
+        end
+
         def find_mapped_fields(standard_field)
           fields.values.select { |field| field.standard_field == standard_field }
         end

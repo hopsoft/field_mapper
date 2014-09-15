@@ -59,5 +59,6 @@ module Custom
         value.strftime("%Y-%m-%m") unless value.nil?
       }
 
+    #basic_mapped_fields(:basic1, :basic2, :basic3)
   end
 end

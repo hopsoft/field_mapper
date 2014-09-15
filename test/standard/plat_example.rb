@@ -46,5 +46,9 @@ module Standard
 
     field :timestamp, type: Time
 
+    #field :basic1, type: String
+    #field :basic2, type: String
+    #field :basic3, type: String
+
   end
 end
