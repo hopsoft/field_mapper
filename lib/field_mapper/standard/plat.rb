@@ -67,6 +67,25 @@ module FieldMapper
           end
         end
 
+        def inspect
+          "#{name} #{new.snapshot.inspect}"
+        end
+
+        def symbolize_hash(hash)
+          hash.reduce({}) do |memo, pair|
+            key = pair.first.intern
+            value = pair.last
+            value = symbolize_hash(value) if value.is_a?(Hash)
+            if value.is_a?(Array)
+              value = value.map do |val|
+                val = symbolize_hash(val) if val.is_a?(Hash)
+              end
+            end
+            memo[key] = value
+            memo
+          end
+        end
+
       end
 
       attr_reader :node_id
@@ -75,6 +94,10 @@ module FieldMapper
         @node_id = params["_node_id"]
         assign_defaults
         assign_params params
+      end
+
+      def inspect
+        "#<#{self.class.name}:0x00#{object_id.to_s(16)} #{snapshot.inspect}>"
       end
 
       def scope
@@ -172,6 +195,10 @@ module FieldMapper
         end
 
         HashWithIndifferentAccess.new(hash)
+      end
+
+      def snapshot
+        self.class.symbolize_hash(to_hash(include_meta: false))
       end
 
       def cache_key
