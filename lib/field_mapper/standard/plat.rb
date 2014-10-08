@@ -79,6 +79,7 @@ module FieldMapper
             if value.is_a?(Array)
               value = value.map do |val|
                 val = symbolize_hash(val) if val.is_a?(Hash)
+                val
               end
             end
             memo[key] = value
