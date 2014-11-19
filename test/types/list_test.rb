@@ -1,7 +1,7 @@
 require_relative "../test_helper"
 require_relative "../standard/plat_example"
 
-class ListTest < MicroTest::Test
+class ListTest < PryTest::Test
 
   test "initialize fails with instance type" do
     begin

@@ -2,7 +2,7 @@ require_relative "../test_helper"
 require_relative "plat_example"
 
 module Standard
-  class PlatTest < MicroTest::Test
+  class PlatTest < PryTest::Test
 
     before do
       @class = Standard::PlatExample

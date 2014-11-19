@@ -1,7 +1,7 @@
 require_relative "../test_helper"
 
 module Custom
-  class FieldTest < MicroTest::Test
+  class FieldTest < PryTest::Test
 
     test "constructor requires type" do
       begin

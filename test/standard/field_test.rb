@@ -2,7 +2,7 @@ require_relative "../test_helper"
 require_relative "plat_example"
 
 module Standard
-  class FieldTest < MicroTest::Test
+  class FieldTest < PryTest::Test
 
     test "constructor requires type" do
       begin

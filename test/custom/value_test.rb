@@ -1,7 +1,7 @@
 require_relative "../test_helper"
 
 module Custom
-  class ValueTest < MicroTest::Test
+  class ValueTest < PryTest::Test
 
     before do
       standard_field = FieldMapper::Standard::Field.new(:foo, type: String)

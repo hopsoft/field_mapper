@@ -4,7 +4,7 @@ require_relative "../custom/plat_example"
 require_relative "../custom/plat_example_alt"
 
 module Standard
-  class ConverterTest < MicroTest::Test
+  class ConverterTest < PryTest::Test
 
     before do
       @standard = Standard::PlatExample.new

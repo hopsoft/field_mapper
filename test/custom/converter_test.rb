@@ -3,7 +3,7 @@ require_relative "plat_example"
 require_relative "plat_example_alt"
 
 module Custom
-  class ConverterTest < MicroTest::Test
+  class ConverterTest < PryTest::Test
 
     before do
       @custom = Custom::PlatExample.new

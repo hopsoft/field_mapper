@@ -1,6 +1,6 @@
 require_relative "test_helper"
 
-class ReadmeTest < MicroTest::Test
+class ReadmeTest < PryTest::Test
 
   test "readme examples" do
 

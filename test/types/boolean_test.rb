@@ -1,6 +1,6 @@
 require_relative "../test_helper"
 
-class BooleanTest < MicroTest::Test
+class BooleanTest < PryTest::Test
   Boolean = FieldMapper::Types::Boolean
 
   test "parse nil" do

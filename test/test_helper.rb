@@ -5,7 +5,7 @@ if ENV["CI"]
   SimpleCov.formatter = Coveralls::SimpleCov::Formatter
 end
 
-SimpleCov.command_name "micro_test"
+SimpleCov.command_name "pry-test"
 SimpleCov.start do
   add_filter "/test/"
 end

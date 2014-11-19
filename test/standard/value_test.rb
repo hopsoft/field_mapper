@@ -1,7 +1,7 @@
 require_relative "../test_helper"
 
 module Standard
-  class ValueTest < MicroTest::Test
+  class ValueTest < PryTest::Test
 
     test "constructor requires field" do
       begin

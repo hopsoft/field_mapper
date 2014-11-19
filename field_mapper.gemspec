@@ -27,6 +27,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"
-  spec.add_development_dependency "micro_test"
+  spec.add_development_dependency "pry-test"
   spec.add_development_dependency "coveralls"
 end
