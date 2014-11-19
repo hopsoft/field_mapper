@@ -6,7 +6,7 @@
 
 # FieldMapper
 
-## Data mapping & transformation with Ruby
+## Data Mapping & Transformation
 
 ### Uses
 
