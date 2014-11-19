@@ -1,14 +1,12 @@
+[![Lines of Code](http://img.shields.io/badge/lines_of_code-1002-brightgreen.svg?style=flat)](http://blog.codinghorror.com/the-best-code-is-no-code-at-all/)
+[![Code Status](http://img.shields.io/codeclimate/github/hopsoft/field_mapper.svg?style=flat)](https://codeclimate.com/github/hopsoft/field_mapper)
+[![Dependency Status](http://img.shields.io/gemnasium/hopsoft/field_mapper.svg?style=flat)](https://gemnasium.com/hopsoft/field_mapper)
+[![Build Status](http://img.shields.io/travis/hopsoft/field_mapper.svg?style=flat)](https://travis-ci.org/hopsoft/field_mapper)
+[![Coverage Status](https://img.shields.io/coveralls/hopsoft/field_mapper.svg?style=flat)](https://coveralls.io/r/hopsoft/field_mapper?branch=master)
+
 # FieldMapper
 
-[![Lines of Code](http://img.shields.io/badge/loc-1002-brightgreen.svg)](http://blog.codinghorror.com/the-best-code-is-no-code-at-all/)
-[![Code Status](https://codeclimate.com/github/hopsoft/field_mapper.png)](https://codeclimate.com/github/hopsoft/field_mapper)
-[![Dependency Status](https://gemnasium.com/hopsoft/field_mapper.png)](https://gemnasium.com/hopsoft/field_mapper)
-[![Build Status](https://travis-ci.org/hopsoft/field_mapper.png)](https://travis-ci.org/hopsoft/field_mapper)
-[![Coverage Status](https://coveralls.io/repos/hopsoft/field_mapper/badge.png)](https://coveralls.io/r/hopsoft/field_mapper)
-
 ## Data mapping & transformation with Ruby
-
-> I know of companies that employ more than 30 people to manage tasks this library can handle.
 
 ### Uses
 
