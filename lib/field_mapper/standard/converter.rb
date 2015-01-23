@@ -9,29 +9,33 @@ module FieldMapper
         @standard_instance = standard_instance
       end
 
-      def convert_to(custom_plat)
-        raise StandardMismatch if custom_plat.standard_plat != standard_plat
+      def convert_to(custom_plat, memoize: true)
+        @converted_to_custom ||= {}
+        @converted_to_custom[custom_plat] = nil unless memoize
+        @converted_to_custom[custom_plat] ||= begin
+          raise StandardMismatch if custom_plat.standard_plat != standard_plat
 
-        custom_instance = custom_plat.new
+          custom_instance = custom_plat.new
 
-        standard_plat.fields.each do |standard_field_name, standard_field|
-          custom_fields = custom_plat.find_mapped_fields(standard_field)
-          custom_fields.each do |custom_field|
-            raw_custom_value = get_raw_custom_value(
-              custom_field,
-              standard_instance[standard_field_name],
-              custom_instance
-            )
-            raw_custom_value = custom_field.cast(raw_custom_value)
-            custom_instance[custom_field.name] = raw_custom_value
+          standard_plat.fields.each do |standard_field_name, standard_field|
+            custom_fields = custom_plat.find_mapped_fields(standard_field)
+            custom_fields.each do |custom_field|
+              raw_custom_value = get_raw_custom_value(
+                custom_field,
+                standard_instance[standard_field_name],
+                custom_instance
+              )
+              raw_custom_value = custom_field.cast(raw_custom_value)
+              custom_instance[custom_field.name] = raw_custom_value
+            end
           end
-        end
 
-        [standard_instance, custom_instance].each do |instance|
-          instance.send(:after_convert, from: standard_instance, to: custom_instance)
-        end
+          [standard_instance, custom_instance].each do |instance|
+            instance.send(:after_convert, from: standard_instance, to: custom_instance)
+          end
 
-        custom_instance
+          custom_instance
+        end
       end
 
       protected

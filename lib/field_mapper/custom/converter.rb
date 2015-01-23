@@ -14,31 +14,38 @@ module FieldMapper
         @standard_plat = custom_plat.standard_plat
       end
 
-      def convert_to_standard
-        standard_instance = standard_plat.new
+      def convert_to_standard(memoize: true)
+        @converterd_to_standard = nil unless memoize
+        @converterd_to_standard ||= begin
+          standard_instance = standard_plat.new
 
-        custom_plat.fields.each do |custom_field_name, custom_field|
-          if custom_field.standard_field.present?
-            raw_standard_value = get_raw_standard_value(
-              custom_field,
-              custom_instance[custom_field_name],
-              standard_instance
-            )
-            raw_standard_value = custom_field.standard_field.cast(raw_standard_value)
-            standard_instance[custom_field.standard_field.name] = raw_standard_value
+          custom_plat.fields.each do |custom_field_name, custom_field|
+            if custom_field.standard_field.present?
+              raw_standard_value = get_raw_standard_value(
+                custom_field,
+                custom_instance[custom_field_name],
+                standard_instance
+              )
+              raw_standard_value = custom_field.standard_field.cast(raw_standard_value)
+              standard_instance[custom_field.standard_field.name] = raw_standard_value
+            end
           end
-        end
 
-        [custom_instance, standard_instance].each do |instance|
-          instance.send(:after_convert, from: custom_instance, to: standard_instance)
-        end
+          [custom_instance, standard_instance].each do |instance|
+            instance.send(:after_convert, from: custom_instance, to: standard_instance)
+          end
 
-        standard_instance
+          standard_instance
+        end
       end
 
-      def convert_to(custom_plat)
-        converter = FieldMapper::Standard::Converter.new(convert_to_standard)
-        converter.convert_to(custom_plat)
+      def convert_to(custom_plat, memoize: true)
+        @converted_to_custom ||= {}
+        @converted_to_custom[custom_plat] = nil unless memoize
+        @converted_to_custom[custom_plat] ||= begin
+          converter = FieldMapper::Standard::Converter.new(convert_to_standard)
+          converter.convert_to(custom_plat)
+        end
       end
 
       protected
