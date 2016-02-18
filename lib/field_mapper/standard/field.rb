@@ -1,5 +1,4 @@
 require "csv"
-require "oj"
 require_relative "value"
 
 module FieldMapper
