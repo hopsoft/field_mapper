@@ -2,5 +2,6 @@ language: ruby
 install:
   - "gem install bundler"
   - "gem install pry-test"
+  - "gem install coveralls"
 rvm:
   - 2.3.0
