@@ -28,7 +28,7 @@ A plat defines the following:
 - Mappings
 - Transformation rules
 
-Datatype declarations exist to support implicit value casting.
+Datatype declarations exist to support implicit type casting of values.
 The supported datatypes are:
 
 - String
@@ -41,8 +41,6 @@ The supported datatypes are:
 - List (of any listed type)
 
 ## Usage
-
-*__Note:__ The examples below highlight most of the features; though, they are painfully contrived.*
 
 ```sh
 gem install field_mapper
