@@ -11,6 +11,20 @@ module FieldMapper
       class << self
         attr_reader :standard_plat
 
+        def inherited(subclass)
+          if @standard_plat.present?
+            subclass.set_standard(@standard_plat)
+
+            if fields.keys.any?
+              subclass._fields = @_fields
+            end
+
+            if field_names.keys.any?
+              subclass.._field_names = @_field_names
+            end
+          end
+        end
+
         def set_standard(standard_plat)
           @standard_plat = standard_plat
         end
