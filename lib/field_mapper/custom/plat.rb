@@ -10,18 +10,18 @@ module FieldMapper
 
       class << self
         attr_reader :standard_plat
+        attr_accessor :is_subclass
 
         def inherited(subclass)
           if @standard_plat.present?
+            subclass.is_subclass = true
             subclass.set_standard(@standard_plat)
 
-            if fields.keys.any?
-              subclass._fields = @_fields
-            end
+            subclass.fields
+            subclass.field_names
 
-            if field_names.keys.any?
-              subclass.._field_names = @_field_names
-            end
+            subclass.fields.update(fields)
+            subclass._field_names = field_names.clone
           end
         end
 
@@ -40,6 +40,17 @@ module FieldMapper
           standard_to_custom: FieldMapper::Custom::Field::DefaultFlipper,
           &block
         )
+          standard_field = standard_plat.fields[standard]
+
+          # Delete inherited fields that are mapped to the same standard field
+          # if their name changed.
+          if @is_subclass.present? && standard_field.present?
+            existing_field = find_mapped_fields(standard_field)
+            if existing_field.any? && existing_field[0].name != name
+              remove_field(existing_field[0].name)
+            end
+          end
+
           field_names[attr_name(name)] = name
 
           field = fields[name] = FieldMapper::Custom::Field.new(
@@ -48,7 +59,7 @@ module FieldMapper
             desc: desc,
             default: default,
             placeholder: placeholder,
-            standard_field: standard_plat.fields[standard],
+            standard_field: standard_field,
             custom_to_standard: custom_to_standard,
             standard_to_custom: standard_to_custom
           )
@@ -62,6 +73,11 @@ module FieldMapper
           define_method("#{attr_name name}=") do |value|
             self[name] = value
           end
+        end
+
+        def remove_field(field_name)
+          fields.delete(field_name)
+          field_names.delete(attr_name(field_name))
         end
 
         def basic_mapped_fields(*names)
