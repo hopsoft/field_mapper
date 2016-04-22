@@ -120,7 +120,7 @@ module Custom
       assert standard.letters = ["a", "c"]
     end
 
-    test "convert_to_standard (with inherited clas)" do
+    test "convert_to_standard (with inherited class)" do
       inherited_plat = Custom::PlatExampleInherited.new(
         star_rating: '**'
       )
