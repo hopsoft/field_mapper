@@ -2,6 +2,7 @@ require_relative "../test_helper"
 require_relative "plat_example"
 require_relative "../custom/plat_example"
 require_relative "../custom/plat_example_alt"
+require_relative "../custom/plat_example_inherited"
 
 module Standard
   class ConverterTest < PryTest::Test
@@ -88,6 +89,17 @@ module Standard
       @standard.timestamp = Time.now
       custom = @converter.convert_to(Custom::PlatExample)
       assert custom.time == @standard.timestamp.strftime("%Y-%m-%m")
+    end
+
+    test "convert_to (custom plat with inherited class)" do
+      @standard.name = "Hello"
+      @standard.score = 3
+      custom = @converter.convert_to(Custom::PlatExampleInherited)
+
+      assert custom.is_a? Custom::PlatExampleInherited
+      assert custom.class.superclass.name == "Custom::PlatExample"
+      assert custom.name == "Hello"
+      assert custom.star_rating == '***'
     end
 
     test "placeholder" do

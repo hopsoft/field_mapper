@@ -1,5 +1,6 @@
 require_relative "../test_helper"
 require_relative "plat_example"
+require_relative "plat_example_inherited"
 
 module Custom
   class PlatTest < PryTest::Test
@@ -143,6 +144,37 @@ module Custom
 
     test "placeholder" do
       assert @instance.class.fields[:name].placeholder == "TYPE YOUR NAME"
+    end
+
+    test "inhertied class can overwrite fields with different names" do
+      inherited_plat = Custom::PlatExampleInherited.new
+
+      begin
+        inherited_plat.rating
+      rescue FieldMapper::FieldNotDefined => _
+        assert true
+      end
+
+      begin
+        inherited_plat.star_rating
+        assert true
+      rescue FieldMapper::FieldNotDefined => _
+        assert false
+      end
+    end
+
+    test "inherited class can set new fields" do
+      inherited_plat = Custom::PlatExampleInherited.new(
+        id: 'testing'
+      )
+
+      assert inherited_plat.id.present?
+    end
+
+    test "inherited class can change previously defined fields" do
+      inherited_plat = Custom::PlatExampleInherited.new
+
+      assert inherited_plat.name == "Inherited"
     end
 
     #test "basic mapped fields" do
