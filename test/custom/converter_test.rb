@@ -1,6 +1,7 @@
 require_relative "../test_helper"
 require_relative "plat_example"
 require_relative "plat_example_alt"
+require_relative "plat_example_inherited"
 
 module Custom
   class ConverterTest < PryTest::Test
@@ -117,6 +118,18 @@ module Custom
       converter = FieldMapper::Custom::Converter.new(@custom)
       standard = converter.convert_to_standard
       assert standard.letters = ["a", "c"]
+    end
+
+    test "convert_to_standard (with inherited class)" do
+      inherited_plat = Custom::PlatExampleInherited.new(
+        star_rating: '**'
+      )
+      converter = FieldMapper::Custom::Converter.new(inherited_plat)
+      standard = converter.convert_to_standard
+
+      assert standard.is_a? Standard::PlatExample
+      assert standard.name == 'Inherited'
+      assert standard.score == 2
     end
 
     test "converted_to different datatype mapped to standard" do

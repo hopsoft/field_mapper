@@ -13,12 +13,14 @@ module FieldMapper
       class << self
         include FieldMapper::NameHelper
 
+        attr_accessor :_fields, :_field_names
+
         def fields
-          @fields ||= HashWithIndifferentAccess.new
+          @_fields ||= HashWithIndifferentAccess.new
         end
 
         def field_names
-          @field_names ||= {}
+          @_field_names ||= {}
         end
 
         def field(
