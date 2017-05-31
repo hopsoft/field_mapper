@@ -8,7 +8,6 @@ Gem::Specification.new do |spec|
   spec.version       = FieldMapper::VERSION
   spec.authors       = ["Nathan Hopkins"]
   spec.email         = ["natehop@gmail.com"]
-  spec.description   = "Data mapping & transformation"
   spec.summary       = "Data mapping & transformation"
   spec.homepage      = "https://github.com/hopsoft/field_mapper"
   spec.license       = "MIT"
@@ -21,8 +20,9 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "activesupport", ">= 4.0.1"
   spec.add_dependency "american_date", "~> 1.1.0"
-  spec.add_dependency "money",         "~> 6.7.0"
-  spec.add_dependency "monetize",      "~> 1.4.0"
+  spec.add_dependency "money",         "~> 6.9.0"
+  spec.add_dependency "monetize",      "~> 1.7.0"
+  spec.add_dependency "oj",            "~> 3.0.10"
 
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"

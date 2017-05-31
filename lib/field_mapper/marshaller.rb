@@ -1,14 +1,23 @@
-require "json"
+require "oj"
 
 module FieldMapper
   module Marshaller
 
+    OPTIONS = {
+      indent: 0,
+      circular: false,
+      class_cache: true,
+      escape: :json,
+      time: :unix,
+      create_id: "field_mapper_json_create"
+    }
+
     def marshal(value)
-      JSON.dump prep_value(value)
+      Oj.dump prep_value(value), OPTIONS
     end
 
     def unmarshal(value)
-      JSON.load value
+      Oj.load value, OPTIONS
     end
 
     private
