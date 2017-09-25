@@ -19,3 +19,4 @@ tmp
 .ruby-version
 tags
 *.swp
+.idea
