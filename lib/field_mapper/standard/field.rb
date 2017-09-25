@@ -157,7 +157,7 @@ module FieldMapper
       def time(value)
         return value.utc if value.is_a?(Time)
         return value.to_time.utc if value.is_a?(Date)
-        return value.to_time(:utc) if value.is_a?(String)
+        return value.to_time(:utc) rescue nil if value.is_a?(String)
         nil
       end
 

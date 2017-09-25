@@ -152,5 +152,10 @@ module Standard
       field = FieldMapper::Standard::Field.new(:foo, type: String)
       assert field.to_s == field.name
     end
+
+    test 'stupid date string returns nil' do
+      field = FieldMapper::Standard::Field.new(:foo, type: Time)
+      assert field.cast('2032-Aug-32').nil?
+    end
   end
 end
