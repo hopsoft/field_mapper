@@ -4,8 +4,6 @@
 [![Build Status](http://img.shields.io/travis/hopsoft/field_mapper.svg?style=flat)](https://travis-ci.org/hopsoft/field_mapper)
 [![Coverage Status](https://img.shields.io/coveralls/hopsoft/field_mapper.svg?style=flat)](https://coveralls.io/r/hopsoft/field_mapper?branch=master)
 
-<a href="https://app.codesponsor.io/link/QMSjMHrtPhvfmCnk5Hbikhhr/hopsoft/field_mapper"><img src="https://app.codesponsor.io/embed/QMSjMHrtPhvfmCnk5Hbikhhr/hopsoft/field_mapper.svg" style="width: 888px; height: 68px;" alt="Sponsor" /></a>
-
 # FieldMapper
 
 ## Data Mapping & Transformation
@@ -249,3 +247,6 @@ This is powerful stuff.
 I invite you to play around & experiment.
 Read through [the tests](https://github.com/hopsoft/field_mapper/tree/master/test) for more detail.
 
+---
+
+<a href="https://app.codesponsor.io/link/QMSjMHrtPhvfmCnk5Hbikhhr/hopsoft/field_mapper" target="_blank"><img src="https://app.codesponsor.io/embed/QMSjMHrtPhvfmCnk5Hbikhhr/hopsoft/field_mapper.svg" style="width: 888px; height: 68px;" alt="Sponsor" /></a>
