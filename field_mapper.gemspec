@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "activesupport", "~> 4.2.10"
   spec.add_dependency "american_date", "~> 1.1.0"
-  spec.add_dependency "money",         "~> 6.10"
+  spec.add_dependency "money",         "~> 6.13"
   spec.add_dependency "monetize",      "~> 1.7"
   spec.add_dependency "oj",            "~> 2.14.6"
 
