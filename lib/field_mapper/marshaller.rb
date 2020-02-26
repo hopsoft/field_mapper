@@ -9,6 +9,8 @@ module FieldMapper
       class_cache: true,
       escape: :json,
       time: :unix,
+      allow_blank: true,
+      empty_string: true,
       create_id: "field_mapper_json_create"
     }
 
