@@ -19,11 +19,11 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = ">= 2.1"
 
-  spec.add_dependency "activesupport", "~> 4.2.10"
-  spec.add_dependency "american_date", "~> 1.1.0"
-  spec.add_dependency "money",         "~> 6.13"
-  spec.add_dependency "monetize",      "~> 1.7"
-  spec.add_dependency "oj",            "~> 2.14.6"
+  spec.add_dependency "activesupport", "~> 5.0"
+  spec.add_dependency "american_date"
+  spec.add_dependency "money"
+  spec.add_dependency "monetize"
+  spec.add_dependency "oj"
 
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"
