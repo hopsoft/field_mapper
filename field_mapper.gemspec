@@ -17,9 +17,9 @@ Gem::Specification.new do |spec|
   spec.test_files    = Dir["test/**/*.rb"]
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = ">= 2.1"
+  spec.required_ruby_version = ">= 2.6"
 
-  spec.add_dependency "activesupport", "~> 5.0"
+  spec.add_dependency "activesupport", "~> 5.1.7"
   spec.add_dependency "american_date"
   spec.add_dependency "money"
   spec.add_dependency "monetize"
