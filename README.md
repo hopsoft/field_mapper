@@ -1,6 +1,4 @@
 [![Lines of Code](http://img.shields.io/badge/lines_of_code-1012-brightgreen.svg?style=flat)](http://blog.codinghorror.com/the-best-code-is-no-code-at-all/)
-[![Code Status](http://img.shields.io/codeclimate/github/hopsoft/field_mapper.svg?style=flat)](https://codeclimate.com/github/hopsoft/field_mapper)
-[![Dependency Status](http://img.shields.io/gemnasium/hopsoft/field_mapper.svg?style=flat)](https://gemnasium.com/hopsoft/field_mapper)
 [![Build Status](http://img.shields.io/travis/hopsoft/field_mapper.svg?style=flat)](https://travis-ci.org/hopsoft/field_mapper)
 [![Coverage Status](https://img.shields.io/coveralls/hopsoft/field_mapper.svg?style=flat)](https://coveralls.io/r/hopsoft/field_mapper?branch=master)
 
@@ -246,7 +244,3 @@ Suppose we want to perform a mapping between Facebook users & Twitter users.
 This is powerful stuff.
 I invite you to play around & experiment.
 Read through [the tests](https://github.com/hopsoft/field_mapper/tree/master/test) for more detail.
-
----
-
-<a href="https://app.codesponsor.io/link/QMSjMHrtPhvfmCnk5Hbikhhr/hopsoft/field_mapper" target="_blank"><img src="https://app.codesponsor.io/embed/QMSjMHrtPhvfmCnk5Hbikhhr/hopsoft/field_mapper.svg" style="width: 888px; height: 68px;" alt="Sponsor" /></a>
